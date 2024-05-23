@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captcha Generator</title>
+    <style>
+        #container{
+           text-align: center;
+           margin-top: 15%;
+           
+        }
+        #captcha{
+            font-size: 30px;
+        }
+
+        #user-input{
+            margin-top: 20px;
+            padding: 10px; 
+            font-size: 20px;
+        }
+        #vrf-btn{
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="captcha"></div>
+        <input placeholder="Enter the captcha" id="user-input">
+        <button id="vrf-btn">Verify</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function generatecaptcha(){
+            const character="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let captcha='';
+            for(let i=0;i<6;i++){
+            captcha+=character.charAt(Math.floor(Math.random()*character.length));
+            
+            }
+            return captcha;
+        }
+        function displaycaptcha(){
+            let captcha=generatecaptcha();
+            document.getElementById("captcha").innerText=captcha;
+            return captcha;
+        }
+        document.addEventListener("DOMContentLoaded",()=>{
+            let currentcaptcha=displaycaptcha();
+            document.getElementById("vrf-btn").addEventListener('click',()=>{
+                const input=document.getElementById("user-input").value
+                
+                if(currentcaptcha==input){
+                    alert("CAPTCHA verified succesfully")
+                }
+                else{
+                   alert("CAPTCHA verification Failed. Please try again")
+                }
+                currentcaptcha=displaycaptcha()
+            document.getElementById("user-input").value='';
+            })
+           
+            
+        })
+       
+    </script>
+</body>
+</html>
